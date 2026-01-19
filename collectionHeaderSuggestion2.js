@@ -1,7 +1,8 @@
+console.log("======================== test =============================");
 collectionsToShow.forEach((coll, index) => {
-    console.log(`Rendu de la collection ${index + 1}:`, coll.title, coll.image);
+  console.log(`Rendu de la collection ${index + 1}:`, coll.title, coll.image);
 
-    const cardHtml = `
+  const cardHtml = `
       <div id="block-image_card_${index}" class="f-column relative custom-content-block--image_card md:flex items-center w-full md:w-1/2 lg:w-2/12" data-block-type="image_card">
         <div class="custom__block custom__block--image_card w-full text-center">
           <a href="${coll.url}" class="card-media--link focus-inset" aria-label="${coll.title}">
@@ -46,6 +47,6 @@ collectionsToShow.forEach((coll, index) => {
       </div>
     `;
 
-    container.insertAdjacentHTML('beforeend', cardHtml);
+  container.insertAdjacentHTML('beforeend', cardHtml);
 });
 console.log('✅ Rendu HTML terminé - ' + collectionsToShow.length + ' collections affichées');
