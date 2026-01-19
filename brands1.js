@@ -1,6 +1,5 @@
 // Filtrer uniquement les collections de type 'brand'
 const brandCollections = allCollections.filter(collection => collection.type === 'brand');
-alert("ping")
 // Fonction pour afficher les marques
 function renderBrands(collections) {
     const container = document.getElementById('brands-container');
