@@ -1,0 +1,259 @@
+<script src="https://cdn.jsdelivr.net/npm/swiper@12/swiper-bundle.min.js"></script>
+
+<link rel="stylesheet"
+  href="//clothivia.com/cdn/shop/t/37/assets/component-deferred-media.css?v=73225175381633074481767439683">
+<link rel="stylesheet"
+  href="//clothivia.com/cdn/shop/t/37/assets/component-product-variant-picker.css?v=44785081319639738281767704960">
+
+<script src="//clothivia.com/cdn/shop/t/37/assets/recently-viewed-products.js?v=162612501565690546071767439682"
+  defer></script>
+
+
+<style>
+  .swiper-container- {
+      {
+      section.id
+    }
+  }
+
+    {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .swiper-controls {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    pointer-events: none;
+    left: 0;
+    padding: 0 10px;
+    z-index: 2;
+  }
+
+  .swiper-controls button {
+    pointer-events: auto;
+  }
+</style>
+
+<div class="section section-recommended-products section--padding page-width color-scheme-1"
+  style="--section-padding-top: 50px; --section-padding-bottom: 50px;">
+  <div class="section__header section__header--vertical spacing--normal">
+    <div class="section__header--text text-center md:text-center">
+      <h2 class="section__heading h1">
+        <motion-element class="block" data-motion="fade-up" data-motion-delay="50">
+          {{ section.settings.heading }}
+        </motion-element>
+      </h2>
+    </div>
+  </div>
+
+  <div class="swiper-container-{{ section.id }}">
+    <div class="swiper" id="swiper-{{ section.id }}">
+      <div class="swiper-wrapper">
+        {% if section.settings.collection != blank %}
+        {% assign selected_collection = collections[section.settings.collection] %}
+        {% assign products = selected_collection.products %}
+        {% else %}
+        {% assign products = recommendations.products %}
+        {% endif %}
+
+        {% for product in products limit: section.settings.products_to_show %}
+        <div class="swiper-slide">
+          <div class="product-card product-card-style-standard mobile-hide-quick-add">
+            <div class="product-card__wrapper h-full">
+              <div class="product-card__image-wrapper color-scheme-1 bg-none">
+                <a href="{{ product.url }}" aria-label="{{ product.title }}">
+                  <motion-element data-motion="zoom-out-sm" class="block">
+                    {% if product.featured_image %}
+                    <div class="media-wrapper product-card__image product-card__image--main loaded"
+                      style="--aspect-ratio: 0.75">
+                      <img src="{{ product.featured_image | image_url: width: 1000 }}" alt="{{ product.title }}" srcset="
+                              {{ product.featured_image | image_url: width: 70 }} 70w,
+                              {{ product.featured_image | image_url: width: 140 }} 140w,
+                              {{ product.featured_image | image_url: width: 355 }} 355w,
+                              {{ product.featured_image | image_url: width: 535 }} 535w,
+                              {{ product.featured_image | image_url: width: 710 }} 710w,
+                              {{ product.featured_image | image_url: width: 1000 }} 1000w
+                            " width="1000" loading="lazy" class="motion-reduce loaded"
+                        sizes="(max-width: 767px) calc((100vw - 30px) / 1), (max-width: 1023px) calc((100vw - 30px) / 3), 342px">
+                    </div>
+                    {% endif %}
+
+                    {% if product.images[1] %}
+                    <div
+                      class="media-wrapper product-card__image product-card__image--second inset-full hidden md:block loaded"
+                      style="--aspect-ratio: 0.75">
+                      <img src="{{ product.images[1] | image_url: width: 1000 }}" alt="{{ product.title }}" srcset="
+                              {{ product.images[1] | image_url: width: 70 }} 70w,
+                              {{ product.images[1] | image_url: width: 140 }} 140w,
+                              {{ product.images[1] | image_url: width: 355 }} 355w,
+                              {{ product.images[1] | image_url: width: 535 }} 535w,
+                              {{ product.images[1] | image_url: width: 710 }} 710w,
+                              {{ product.images[1] | image_url: width: 1000 }} 1000w
+                            " width="1000" loading="lazy" class="motion-reduce loaded"
+                        sizes="(max-width: 767px) calc((100vw - 30px) / 1), (max-width: 1023px) calc((100vw - 30px) / 3), 342px">
+                    </div>
+                    {% endif %}
+                  </motion-element>
+                </a>
+
+                <div class="product-card__badge">
+                  {% if product.tags contains 'bestseller' %}
+                  <span class="f-badge f-badge--bestseller">Best Seller</span>
+                  {% endif %}
+                  {% if product.tags contains 'new' %}
+                  <span class="f-badge f-badge--newarrival">New Arrival</span>
+                  {% endif %}
+                </div>
+
+                <button class="product-card__quickview btn btn--icon-circle btn--white no-js-hidden"
+                  aria-label="Quick view" aria-haspopup="dialog">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="1.5" class="icon icon-magnifying-glass icon--large">
+                    <path
+                      d="M10.875 18.75C15.2242 18.75 18.75 15.2242 18.75 10.875C18.75 6.52576 15.2242 3 10.875 3C6.52576 3 3 6.52576 3 10.875C3 15.2242 6.52576 18.75 10.875 18.75Z">
+                    </path>
+                    <path d="M16.4434 16.4453L20.9997 21.0016"></path>
+                  </svg>
+                </button>
+
+                <div class="product-card__actions product-card__main-actions">
+                  <a href="{{ product.url }}" class="product-card__atc product-card__action-button btn btn--white">
+                    <span class="product-card__atc-icon product-card__action-icon inline-flex md:hidden">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                        class="icon icon-shopping-bag icon--medium">
+                        <path
+                          d="M19.575 6.75H4.425C4.24045 6.75087 4.06254 6.81891 3.92451 6.94141C3.78648 7.06391 3.69778 7.23249 3.675 7.41562L2.34375 19.4156C2.33191 19.5202 2.34221 19.6261 2.37396 19.7264C2.40572 19.8267 2.45823 19.9192 2.52808 19.9979C2.59794 20.0766 2.68357 20.1397 2.77941 20.1831C2.87525 20.2266 2.97916 20.2494 3.08438 20.25H20.9156C21.0209 20.2494 21.1248 20.2266 21.2206 20.1831C21.3164 20.1397 21.4021 20.0766 21.4719 19.9979C21.5418 19.9192 21.5943 19.8267 21.626 19.7264C21.6578 19.6261 21.6681 19.5202 21.6563 19.4156L20.325 7.41562C20.3022 7.23249 20.2135 7.06391 20.0755 6.94141C19.9375 6.81891 19.7596 6.75087 19.575 6.75V6.75Z">
+                        </path>
+                        <path
+                          d="M8.25 6.75C8.25 5.75544 8.64509 4.80161 9.34835 4.09835C10.0516 3.39509 11.0054 3 12 3C12.9946 3 13.9484 3.39509 14.6517 4.09835C15.3549 4.80161 15.75 5.75544 15.75 6.75">
+                        </path>
+                      </svg>
+                    </span>
+                    <span class="product-card__atc-text product-card__action-text">
+                      {% if product.has_only_default_variant %}Add to cart{% else %}Choose options{% endif %}
+                    </span>
+                  </a>
+                </div>
+              </div>
+
+              <div class="product-card__info text-left">
+                <p class="product-card__type text-sm m-0">
+                  <span class="visually-hidden">Type:</span>
+                  {{ product.type }}
+                </p>
+
+                <h3 class="product-card__title text-pcard-title">
+                  <a class="reversed-link" href="{{ product.url }}">{{ product.title }}</a>
+                </h3>
+
+                <div class="loox-rating" data-id="{{ product.id }}"></div>
+
+                <div class="f-price f-price--left">
+                  {% if product.compare_at_price > product.price %}
+                  <div class="f-price__sale">
+                    <span class="visually-hidden">Sale price</span>
+                    <span class="f-price-item f-price-item--sale">
+                      <span class="langwill-money">{{ product.price | money }}</span>
+                    </span>
+                    <span class="visually-hidden">Regular price</span>
+                    <span class="f-price-item f-price-item--regular">
+                      <s>{{ product.compare_at_price | money }}</s>
+                    </span>
+                  </div>
+                  {% else %}
+                  <div class="f-price__regular">
+                    <span class="visually-hidden">Regular price</span>
+                    <span class="f-price-item f-price-item--regular">
+                      <span class="langwill-money">{{ product.price | money }}</span>
+                    </span>
+                  </div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="swiper-controls swiper-controls--inside hidden md:block">
+      <button id="tototototo" class="swiper-button-prev btn" data-glider-prev="#products-{{ section.id }}"
+        aria-label="Slide left" role="button">
+        <svg class="icon icon-slider-prev icon--medium" viewBox="0 0 20 20" fill="none">
+          <path d="M12.75 16.2505L6.5 10.0005L12.75 3.75049" stroke="currentColor" stroke-width="1.5"
+            stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </button>
+      <button id="yoyoyoyoyo" class="swiper-button-next btn" data-glider-next="#products-{{ section.id }}"
+        aria-label="Slide right" role="button">
+        <svg class="icon icon-slider-prev icon--medium" viewBox="0 0 20 20" fill="none">
+          <path d="M7.5 3.74121L13.75 9.99121L7.5 16.2412" stroke="currentColor" stroke-width="1.5"
+            stroke-linecap="round" stroke-linejoin="round"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const swiper = new Swiper('#swiper-{{ section.id }}', {
+      slidesPerView: 1,
+      spaceBetween: 30,
+      loop: true,
+      navigation: {
+        nextEl: '#yoyoyoyoyo',
+        prevEl: '#tototototo',
+      },
+      breakpoints: {
+        768: {
+          slidesPerView: 3,
+          spaceBetween: 30,
+        },
+        1024: {
+          slidesPerView: 4,
+          spaceBetween: 30,
+        },
+      },
+    });
+  });
+</script>
+
+{% schema %}
+{
+"name": "Product Recommendation",
+"settings": [
+{
+"type": "text",
+"id": "heading",
+"label": "Heading",
+"default": "Recommended Products"
+},
+{
+"type": "collection",
+"id": "collection",
+"label": "Collection (optional - leave empty for product recommendations)"
+},
+{
+"type": "range",
+"id": "products_to_show",
+"min": 2,
+"max": 12,
+"step": 1,
+"default": 8,
+"label": "Number of products to show"
+}
+],
+"presets": [
+{
+"name": "Product Recommendation"
+}
+]
+}
+{% endschema %}
