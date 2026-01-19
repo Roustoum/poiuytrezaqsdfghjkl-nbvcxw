@@ -1,4 +1,4 @@
-console.log("======================== test =============================");
+console.log("======================== testing =============================");
 collectionsToShow.forEach((coll, index) => {
   console.log(`Rendu de la collection ${index + 1}:`, coll.title, coll.image);
 
